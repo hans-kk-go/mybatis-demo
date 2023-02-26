@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hans.mapper.BrandMapper">
+
+
+<!--    id:唯一标识  type:映射的类型 支持别名方式-->
+    <resultMap id="brandResultMap" type="brand">
+<!--        id：完成主键字段的映射
+            column：表的列名
+            property：实体类的属性名
+
+            result：完成一般字段的映射
+            column：表的列名
+            property：实体类的属性名-->
+        <result column="brand_name" property="brandName"></result>
+        <result column="company_name" property="companyName"></result>
+    </resultMap>
+
+    <select id="selectAll" resultMap="brandResultMap">
+        select * from tb_brand
+    </select>
+</mapper>

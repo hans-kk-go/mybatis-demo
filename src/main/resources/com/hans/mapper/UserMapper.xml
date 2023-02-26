@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hans.mapper.UserMapper">
+<!--    <select id="selectAll1" resultType="Brand">-->
+<!--        select * from tb_brand-->
+<!--    </select>-->
+
+    <select id="selectOne" resultType="com.hans.pojo.User">
+        select
+    </select>
+
+
+<!--    <select id="selectAll" resultType="com.itheima.pojo.Brand">-->
+<!--        select * from tb_brand-->
+<!--    </select>-->
+</mapper>
