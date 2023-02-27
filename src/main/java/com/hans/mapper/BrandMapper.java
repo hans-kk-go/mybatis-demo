@@ -22,4 +22,7 @@ public interface BrandMapper {
     int update(Brand brand);
 
     int update1(Brand brand);
+
+
+    int deleteById(int id);
 }

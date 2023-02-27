@@ -265,4 +265,29 @@ public class Test {
         sqlSession.close();
 
     }
+
+
+    @org.junit.jupiter.api.Test
+    public void testdelete() throws IOException {
+//        1.获取sqlsessionFactory
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(inputStream);
+
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+
+
+        int id = 3;
+        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        int i = mapper.deleteById(id);
+        System.out.println(i);
+
+
+        //手动提交事务
+//        sqlSession.commit();
+        //释放资源
+        sqlSession.close();
+
+    }
 }
