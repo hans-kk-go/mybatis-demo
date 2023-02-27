@@ -18,7 +18,117 @@
         <result column="company_name" property="companyName"></result>
     </resultMap>
 
+
+
     <select id="selectAll" resultMap="brandResultMap">
         select * from tb_brand
     </select>
+
+
+<!--    参数占位符：
+            1，#{}：会将其替换位？为了防止sql注入
+            2，${}：拼sql，会存在sql注入问题
+            3，使用时机：
+            参数传递的时候 使用#{}
+            ${} 表名，列名不固定的时候使用-->
+    <select id="selectById" resultMap="brandResultMap">
+        select * from tb_brand where id
+        <![CDATA[
+        <
+        ]]>
+        #{id}
+    </select>
+    <select id="selectByCondition" resultMap="brandResultMap">
+        select * from tb_brand where status = #{status} and company_name like #{companyName} and brand_name like #{brandName}
+    </select>
+    <select id="selectByCondition1" resultMap="brandResultMap">
+        select * from tb_brand where status = #{status} and company_name like #{companyName} and brand_name like #{brandName}
+    </select>
+
+<!--    <动态条件查询-->
+
+    <select id="selectByCondition2" resultMap="brandResultMap">
+        select * from tb_brand
+        <where>
+
+            <if test="status != null">
+                status = #{status}
+            </if>
+
+            <if test="companyName != null and companyName != ''">
+                and company_name like #{companyName}
+            </if>
+
+            <if test="brandName != null and brandName != ''">
+                and  brand_name like #{brandName}
+            </if>
+
+        </where>
+
+
+
+    </select>
+    <select id="selectBySingleCondition" resultMap="brandResultMap">
+        select *
+        from tb_brand
+        <where>
+<!--        相当于swich函数-->
+            <choose>
+<!--            相当于java里的case-->
+                <when test="status != null">
+                    status = #{status}
+                </when>
+                <when test="companyName != null and companyName != ''">
+                    and company_name like #{companyName}
+                </when>
+                <when test="brandName != null and brandName != ''">
+                    and  brand_name like #{brandName}
+                </when>
+<!--                <otherwise>-->
+<!--                    1 = 1-->
+<!--                </otherwise>-->
+            </choose>
+        </where>
+    </select>
+
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+            insert into tb_brand(brand_name,company_name,ordered,description,status)
+            values(#{brandName},#{companyName},#{ordered},#{description},#{status});
+    </insert>
+
+
+    <update id="update">
+        update tb_brand
+        set
+            brand_name = #{brandName},
+            company_name = #{companyName},
+            ordered = #{ordered},
+            description = #{description},
+            status = #{status}
+        where
+         id = #{id}
+    </update>
+    <update id="update1">
+        update tb_brand
+        <set>
+            <if test="brandName != null and brandName != ''">
+                brand_name = #{brandName},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name = #{companyName},
+            </if>
+            <if test="ordered != null">
+                ordered = #{ordered},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description}
+            </if>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        where id = #{id}
+
+    </update>
 </mapper>
